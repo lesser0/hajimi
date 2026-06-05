@@ -454,9 +454,7 @@ async def handle_fake_streaming(
         gemini_client.complete_chat(
             chat_request,
             contents,
-            safety_settings_g2
-            if "gemini-2.5" in chat_request.model
-            else safety_settings,
+            safety_settings_g2,
             system_instruction,
         )
     )
