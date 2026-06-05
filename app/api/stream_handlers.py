@@ -486,9 +486,10 @@ async def handle_fake_streaming(
         if not response_content or (
             not response_content.text and not response_content.function_call
         ):
+            reason = response_content.finish_reason if response_content else "unknown"
             log(
                 "warning",
-                "请求返回空响应",
+                f"请求返回空响应 (finish_reason: {reason})",
                 extra={
                     "key": api_key[:8],
                     "request_type": "fake-stream",
