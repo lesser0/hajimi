@@ -46,9 +46,10 @@ async def process_nonstream_request(
         if not response_content or (
             not response_content.text and not response_content.function_call
         ):
+            reason = response_content.finish_reason if response_content else "unknown"
             log(
                 "warning",
-                f"API密钥 {current_api_key[:8]}... 返回空响应",
+                f"API密钥 {current_api_key[:8]}... 返回空响应 (finish_reason: {reason})",
                 extra={
                     "key": current_api_key[:8],
                     "request_type": "non-stream",
