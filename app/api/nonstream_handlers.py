@@ -49,9 +49,9 @@ async def process_nonstream_request(
             reason = response_content.finish_reason if response_content else "unknown"
             log(
                 "warning",
-                f"API密钥 {current_api_key[:8]}... 返回空响应 (finish_reason: {reason})",
+                f"API密钥 {current_api_key[:12]}... 返回空响应 (finish_reason: {reason})",
                 extra={
-                    "key": current_api_key[:8],
+                    "key": current_api_key[:12],
                     "request_type": "non-stream",
                     "model": chat_request.model,
                 },
@@ -121,9 +121,9 @@ async def process_nonstream_request_with_keepalive(
         ):
             log(
                 "warning",
-                f"API密钥 {current_api_key[:8]}... 返回空响应",
+                f"API密钥 {current_api_key[:12]}... 返回空响应",
                 extra={
-                    "key": current_api_key[:8],
+                    "key": current_api_key[:12],
                     "request_type": "non-stream",
                     "model": chat_request.model,
                 },
@@ -195,9 +195,9 @@ async def process_nonstream_request_with_simple_keepalive(
         ):
             log(
                 "warning",
-                f"API密钥 {current_api_key[:8]}... 返回空响应",
+                f"API密钥 {current_api_key[:12]}... 返回空响应",
                 extra={
-                    "key": current_api_key[:8],
+                    "key": current_api_key[:12],
                     "request_type": "non-stream",
                     "model": chat_request.model,
                 },
@@ -307,9 +307,9 @@ async def process_request(
             else:
                 log(
                     "warning",
-                    f"API密钥 {api_key[:8]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
+                    f"API密钥 {api_key[:12]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
                     extra={
-                        "key": api_key[:8],
+                        "key": api_key[:12],
                         "request_type": "non-stream",
                         "model": chat_request.model,
                     },
@@ -342,9 +342,9 @@ async def process_request(
             # 记录当前尝试的密钥信息
             log(
                 "info",
-                f"非流式请求开始，使用密钥: {api_key[:8]}...",
+                f"非流式请求开始，使用密钥: {api_key[:12]}...",
                 extra={
-                    "key": api_key[:8],
+                    "key": api_key[:12],
                     "request_type": "non-stream",
                     "model": chat_request.model,
                 },
@@ -400,7 +400,7 @@ async def process_request(
                             "info",
                             "非流式请求成功",
                             extra={
-                                "key": api_key[:8],
+                                "key": api_key[:12],
                                 "request_type": "non-stream",
                                 "model": chat_request.model,
                             },
@@ -420,7 +420,7 @@ async def process_request(
                             "warning",
                             f"空响应计数: {empty_response_count}/{settings.MAX_EMPTY_RESPONSES}",
                             extra={
-                                "key": api_key[:8],
+                                "key": api_key[:12],
                                 "request_type": "non-stream",
                                 "model": chat_request.model,
                             },
@@ -560,9 +560,9 @@ async def process_nonstream_with_keepalive_stream(
                     else:
                         log(
                             "warning",
-                            f"API密钥 {api_key[:8]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
+                            f"API密钥 {api_key[:12]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
                             extra={
-                                "key": api_key[:8],
+                                "key": api_key[:12],
                                 "request_type": "non-stream",
                                 "model": chat_request.model,
                             },
@@ -598,9 +598,9 @@ async def process_nonstream_with_keepalive_stream(
                     # 记录当前尝试的密钥信息
                     log(
                         "info",
-                        f"非流式请求开始，使用密钥: {api_key[:8]}...",
+                        f"非流式请求开始，使用密钥: {api_key[:12]}...",
                         extra={
-                            "key": api_key[:8],
+                            "key": api_key[:12],
                             "request_type": "non-stream",
                             "model": chat_request.model,
                         },
@@ -653,7 +653,7 @@ async def process_nonstream_with_keepalive_stream(
                                     "info",
                                     "非流式请求成功",
                                     extra={
-                                        "key": api_key[:8],
+                                        "key": api_key[:12],
                                         "request_type": "non-stream",
                                         "model": chat_request.model,
                                     },
@@ -683,7 +683,7 @@ async def process_nonstream_with_keepalive_stream(
                                     "warning",
                                     f"空响应计数: {empty_response_count}/{settings.MAX_EMPTY_RESPONSES}",
                                     extra={
-                                        "key": api_key[:8],
+                                        "key": api_key[:12],
                                         "request_type": "non-stream",
                                         "model": chat_request.model,
                                     },

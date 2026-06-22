@@ -71,9 +71,9 @@ async def stream_response_generator(
             else:
                 log(
                     "warning",
-                    f"API密钥 {api_key[:8]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
+                    f"API密钥 {api_key[:12]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
                     extra={
-                        "key": api_key[:8],
+                        "key": api_key[:12],
                         "request_type": "stream",
                         "model": chat_request.model,
                     },
@@ -106,9 +106,9 @@ async def stream_response_generator(
             # 假流式模式的处理逻辑
             log(
                 "info",
-                f"假流式请求开始，使用密钥: {api_key[:8]}...",
+                f"假流式请求开始，使用密钥: {api_key[:12]}...",
                 extra={
-                    "key": api_key[:8],
+                    "key": api_key[:12],
                     "request_type": "fake-stream",
                     "model": chat_request.model,
                 },
@@ -163,7 +163,7 @@ async def stream_response_generator(
                                 "info",
                                 "假流式请求成功",
                                 extra={
-                                    "key": api_key[:8],
+                                    "key": api_key[:12],
                                     "request_type": "fake-stream",
                                     "model": chat_request.model,
                                 },
@@ -193,7 +193,7 @@ async def stream_response_generator(
                                 "warning",
                                 f"空响应计数: {empty_response_count}/{settings.MAX_EMPTY_RESPONSES}",
                                 extra={
-                                    "key": api_key[:8],
+                                    "key": api_key[:12],
                                     "request_type": "stream",
                                     "model": chat_request.model,
                                 },
@@ -205,7 +205,7 @@ async def stream_response_generator(
                             "error",
                             f"请求失败: {error_detail}",
                             extra={
-                                "key": api_key[:8],
+                                "key": api_key[:12],
                                 "request_type": "stream",
                                 "model": chat_request.model,
                             },
@@ -286,9 +286,9 @@ async def stream_response_generator(
             else:
                 log(
                     "warning",
-                    f"API密钥 {api_key[:8]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
+                    f"API密钥 {api_key[:12]}... 已达到每日调用限制 ({usage}/{settings.API_KEY_DAILY_LIMIT})",
                     extra={
-                        "key": api_key[:8],
+                        "key": api_key[:12],
                         "request_type": "stream",
                         "model": chat_request.model,
                     },
@@ -352,7 +352,7 @@ async def stream_response_generator(
                         "warning",
                         f"流式请求返回空响应，空响应计数: {empty_response_count}/{settings.MAX_EMPTY_RESPONSES}",
                         extra={
-                            "key": api_key[:8],
+                            "key": api_key[:12],
                             "request_type": "stream",
                             "model": chat_request.model,
                         },
@@ -371,9 +371,9 @@ async def stream_response_generator(
             error_detail = handle_gemini_error(e, api_key)
             log(
                 "error",
-                f"流式响应: API密钥 {api_key[:8]}... 请求失败: {error_detail}",
+                f"流式响应: API密钥 {api_key[:12]}... 请求失败: {error_detail}",
                 extra={
-                    "key": api_key[:8],
+                    "key": api_key[:12],
                     "request_type": "stream",
                     "model": chat_request.model,
                 },
@@ -468,7 +468,7 @@ async def handle_fake_streaming(
             "info",
             "假流式成功获取响应，进行缓存",
             extra={
-                "key": api_key[:8],
+                "key": api_key[:12],
                 "request_type": "fake-stream",
                 "model": chat_request.model,
             },
@@ -491,7 +491,7 @@ async def handle_fake_streaming(
                 "warning",
                 f"请求返回空响应 (finish_reason: {reason})",
                 extra={
-                    "key": api_key[:8],
+                    "key": api_key[:12],
                     "request_type": "fake-stream",
                     "model": chat_request.model,
                 },
@@ -504,8 +504,8 @@ async def handle_fake_streaming(
 
     except Exception as e:
         handle_gemini_error(e, api_key)
-        # log('error', f"假流式模式: API密钥 {api_key[:8]}... 请求失败: {error_detail}",
-        #     extra={'key': api_key[:8], 'request_type': 'fake-stream', 'model': chat_request.model})
+        # log('error', f"假流式模式: API密钥 {api_key[:12]}... 请求失败: {error_detail}",
+        #     extra={'key': api_key[:12], 'request_type': 'fake-stream', 'model': chat_request.model})
         return "error"
 
 

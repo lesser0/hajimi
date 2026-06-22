@@ -133,7 +133,7 @@ class ResponseCacheManager:
 
                 if cleaned_count > 0:
                     log(
-                        "info", f"清理键 {key[:8]}... 的过期缓存项 {cleaned_count} 个。"
+                        "info", f"清理键 {key[:12]}... 的过期缓存项 {cleaned_count} 个。"
                     )
                     total_cleaned += cleaned_count
 
@@ -142,7 +142,7 @@ class ResponseCacheManager:
                     # 在持有锁时直接删除键
                     if key in self.cache:
                         del self.cache[key]
-                        log("info", f"缓存键 {key[:8]}... 的所有项均已过期，移除该键。")
+                        log("info", f"缓存键 {key[:12]}... 的所有项均已过期，移除该键。")
                 elif cleaned_count > 0:
                     # 替换为只包含有效项的 deque
                     self.cache[key] = valid_items
@@ -205,13 +205,13 @@ class ResponseCacheManager:
                         # 计数器在最后统一更新
                         log(
                             "info",
-                            f"因容量限制，删除键 {key_to_clean[:8]}... 的旧缓存项 (创建于 {item_meta['created_at']})。",
+                            f"因容量限制，删除键 {key_to_clean[:12]}... 的旧缓存项 (创建于 {item_meta['created_at']})。",
                         )
                         keys_potentially_empty.add(key_to_clean)
                     except (KeyError, ValueError):
                         log(
                             "warning",
-                            f"尝试因容量限制删除缓存项时未找到 (可能已被提前移除): {key_to_clean[:8]}...",
+                            f"尝试因容量限制删除缓存项时未找到 (可能已被提前移除): {key_to_clean[:12]}...",
                         )
                         pass
 
@@ -221,7 +221,7 @@ class ResponseCacheManager:
                     del self.cache[key]
                     log(
                         "info",
-                        f"因容量限制清理后，键 {key[:8]}... 的deque已空，移除该键。",
+                        f"因容量限制清理后，键 {key[:12]}... 的deque已空，移除该键。",
                     )
 
             # 统一更新缓存计数

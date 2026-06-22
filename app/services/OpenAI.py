@@ -70,7 +70,7 @@ class OpenAIClient:
             log(
                 "INFO",
                 "开启联网搜索模式",
-                extra={"key": self.api_key[:8], "model": request.model},
+                extra={"key": self.api_key[:12], "model": request.model},
             )
             data.setdefault("tools", []).append({"google_search": {}})
 
@@ -78,7 +78,7 @@ class OpenAIClient:
 
         # 真流式请求处理逻辑
         extra_log = {
-            "key": self.api_key[:8],
+            "key": self.api_key[:12],
             "request_type": "stream",
             "model": request.model,
         }
@@ -123,7 +123,7 @@ class OpenAIClient:
                                 "ERROR",
                                 "流式处理期间发生错误",
                                 extra={
-                                    "key": self.api_key[:8],
+                                    "key": self.api_key[:12],
                                     "request_type": "stream",
                                     "model": request.model,
                                 },

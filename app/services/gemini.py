@@ -185,7 +185,7 @@ class GeminiClient:
             log(
                 "INFO",
                 "开启联网搜索模式",
-                extra={"key": self.api_key[:8], "model": request.model},
+                extra={"key": self.api_key[:12], "model": request.model},
             )
 
             data.setdefault("tools", []).append({"google_search": {}})
@@ -303,7 +303,7 @@ class GeminiClient:
     async def stream_chat(self, request, contents, safety_settings, system_instruction):
         # 真流式请求处理逻辑
         extra_log = {
-            "key": self.api_key[:8],
+            "key": self.api_key[:12],
             "request_type": "stream",
             "model": request.model,
         }

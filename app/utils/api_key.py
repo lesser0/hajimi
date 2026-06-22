@@ -13,10 +13,12 @@ logger = logging.getLogger("my_logger")
 class APIKeyManager:
     def __init__(self):
         self.api_keys = re.findall(r"AIzaSy[a-zA-Z0-9_-]{33}", settings.GEMINI_API_KEYS)
+        self.api_keys += re.findall(r"AQ\.Ab8RN6[a-zA-Z0-9_-]{44}", settings.GEMINI_API_KEYS)
         # 加载更多 GEMINI_API_KEYS
         for i in range(1, 99):
             if keys := os.environ.get(f"GEMINI_API_KEYS_{i}", ""):
                 self.api_keys += re.findall(r"AIzaSy[a-zA-Z0-9_-]{33}", keys)
+                self.api_keys += re.findall(r"AQ\.Ab8RN6[a-zA-Z0-9_-]{44}", keys)
             else:
                 break
 
@@ -65,12 +67,12 @@ class APIKeyManager:
         logger.info(log_msg)
         for i, api_key in enumerate(self.api_keys):
             log_msg = format_log_message(
-                "INFO", f"API Key{i}: {api_key[:8]}...{api_key[-3:]}"
+                "INFO", f"API Key{i}: {api_key[:12]}...{api_key[-3:]}"
             )
             logger.info(log_msg)
 
     # def blacklist_key(self, key):
-    #     log_msg = format_log_message('WARNING', f"{key[:8]} → 暂时禁用 {self.api_key_blacklist_duration} 秒")
+    #     log_msg = format_log_message('WARNING', f"{key[:12]} → 暂时禁用 {self.api_key_blacklist_duration} 秒")
     #     logger.warning(log_msg)
     #     self.api_key_blacklist.add(key)
     #     self.scheduler.add_job(lambda: self.api_key_blacklist.discard(key), 'date',

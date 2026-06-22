@@ -100,7 +100,7 @@ async def get_cache(cache_key, is_stream: bool, is_gemini=False):
     if cache_hit and cached_response:
         log(
             "info",
-            f"缓存命中: {cache_key[:8]}...",
+            f"缓存命中: {cache_key[:12]}...",
             extra={"request_type": "non-stream", "model": cached_response.model},
         )
 
@@ -210,7 +210,7 @@ async def aistudio_chat_completions(
     # 记录请求缓存键信息
     log(
         "info",
-        f"请求缓存键: {cache_key[:8]}...",
+        f"请求缓存键: {cache_key[:12]}...",
         extra={"request_type": "non-stream", "model": request.model},
     )
 

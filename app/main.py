@@ -98,10 +98,10 @@ async def check_remaining_keys_async(keys_to_check: list, initial_invalid_keys: 
             if key not in key_manager.api_keys:  # 避免重复添加
                 key_manager.api_keys.append(key)
                 found_valid_keys = True
-            # log('info', f"API Key {key[:8]}... 有效")
+            # log('info', f"API Key {key[:12]}... 有效")
         else:
             local_invalid_keys.append(key)
-            log("warning", f" API Key {key[:8]}... 无效")
+            log("warning", f" API Key {key[:12]}... 无效")
 
         await asyncio.sleep(0.05)  # 短暂休眠，避免请求过于密集
 
@@ -166,7 +166,7 @@ async def startup_event():
     for index, key in enumerate(initial_keys):
         is_valid = await test_api_key(key)
         if is_valid:
-            log("info", f"找到第一个有效密钥: {key[:8]}...")
+            log("info", f"找到第一个有效密钥: {key[:12]}...")
             first_valid_key = key
             key_manager.api_keys.append(key)  # 添加到管理器
             key_manager._reset_key_stack()
@@ -174,7 +174,7 @@ async def startup_event():
             keys_to_check_later = initial_keys[index + 1 :]
             break  # 找到即停止
         else:
-            log("warning", f"密钥 {key[:8]}... 无效")
+            log("warning", f"密钥 {key[:12]}... 无效")
             initial_invalid_keys.append(key)
 
     if not first_valid_key:
@@ -187,11 +187,11 @@ async def startup_event():
             GeminiClient.AVAILABLE_MODELS = [
                 model.replace("models/", "") for model in all_models
             ]
-            log("info", f"使用密钥 {first_valid_key[:8]}... 加载可用模型成功")
+            log("info", f"使用密钥 {first_valid_key[:12]}... 加载可用模型成功")
         except Exception as e:
             log(
                 "warning",
-                f"使用密钥 {first_valid_key[:8]}... 加载可用模型失败",
+                f"使用密钥 {first_valid_key[:12]}... 加载可用模型失败",
                 extra={"error_message": str(e)},
             )
 

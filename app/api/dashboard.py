@@ -408,7 +408,7 @@ async def update_config(config_data: dict):
                 key_manager._reset_key_stack()
                 # 获取一个随机API密钥
                 for key in key_manager.api_keys:
-                    log("info", f"使用API密钥 {key[:8]}... 刷新可用模型列表")
+                    log("info", f"使用API密钥 {key[:12]}... 刷新可用模型列表")
                     # 使用随机密钥获取可用模型
                     all_models = await GeminiClient.list_available_models(key)
                     GeminiClient.AVAILABLE_MODELS = [
@@ -662,7 +662,7 @@ async def update_config(config_data: dict):
                     # 使用新添加的密钥之一尝试获取可用模型
                     for key in new_keys:
                         log(
-                            "info", f"使用新添加的API密钥 {key[:8]}... 获取可用模型列表"
+                            "info", f"使用新添加的API密钥 {key[:12]}... 获取可用模型列表"
                         )
                         all_models = await GeminiClient.list_available_models(key)
                         GeminiClient.AVAILABLE_MODELS = [
@@ -767,10 +767,10 @@ def check_api_key_in_thread(key):
     try:
         is_valid = loop.run_until_complete(test_api_key(key))
         if is_valid:
-            log("info", f"API密钥 {key[:8]}... 有效")
+            log("info", f"API密钥 {key[:12]}... 有效")
             return key, True
         else:
-            log("warning", f"API密钥 {key[:8]}... 无效")
+            log("warning", f"API密钥 {key[:12]}... 无效")
             return key, False
     finally:
         loop.close()
@@ -783,7 +783,7 @@ async def test_api_key(key):
         all_models = await GeminiClient.list_available_models(key)
         return len(all_models) > 0
     except Exception as e:
-        log("error", f"测试API密钥 {key[:8]}... 时出错: {str(e)}")
+        log("error", f"测试API密钥 {key[:12]}... 时出错: {str(e)}")
         return False
 
 

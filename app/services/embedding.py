@@ -34,7 +34,7 @@ class EmbeddingClient:
         }
         
         extra_log = {
-            "key": self.api_key[:8],
+            "key": self.api_key[:12],
             "model": model_name,
         }
         log("INFO", "Embedding request started", extra=extra_log)

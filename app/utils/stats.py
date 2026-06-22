@@ -144,7 +144,7 @@ class ApiStatsManager:
                 self.recent_calls.pop(0)
 
         # 记录日志
-        log_message = f"API调用已记录: 秘钥 '{api_key[:8]}', 模型 '{model}', 令牌: {tokens if tokens is not None else 0}"
+        log_message = f"API调用已记录: 秘钥 '{api_key[:12]}', 模型 '{model}', 令牌: {tokens if tokens is not None else 0}"
         log("info", log_message)
 
     async def cleanup(self):
@@ -272,7 +272,7 @@ class ApiStatsManager:
 
         with self._counters_lock:
             for api_key in api_keys:
-                api_key_id = api_key[:8]
+                api_key_id = api_key[:12]
                 calls_24h = self.api_key_counts[api_key]
                 total_tokens = self.api_key_tokens[api_key]
 

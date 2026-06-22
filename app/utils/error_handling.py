@@ -75,7 +75,7 @@ def handle_gemini_error(error, current_api_key) -> str:
             log(
                 "ERROR",
                 error_message,
-                extra={"key": current_api_key[:8], "status_code": status_code},
+                extra={"key": current_api_key[:12], "status_code": status_code},
             )
             return error_message
 
@@ -167,7 +167,7 @@ async def handle_api_error(
                 "warning",
                 f"{error_message}，将等待{wait_time}秒后重试 ({retry_count + 1}/3)",
                 extra={
-                    "key": api_key[:8],
+                    "key": api_key[:12],
                     "request_type": request_type,
                     "model": model,
                     "status_code": int(status_code),
@@ -183,7 +183,7 @@ async def handle_api_error(
                 "WARNING",
                 "429 官方资源耗尽或其他原因",
                 extra={
-                    "key": api_key[:8],
+                    "key": api_key[:12],
                     "status_code": status_code,
                     "error_message": error_message,
                 },
@@ -201,7 +201,7 @@ async def handle_api_error(
 
             # # 重试次数用尽，在日志中输出错误状态码
             # log('error', f"Gemini 服务器错误({status_code})",
-            #     extra={'key': api_key[:8], 'request_type': request_type, 'model': model, 'status_code': int(status_code)})
+            #     extra={'key': api_key[:12], 'request_type': request_type, 'model': model, 'status_code': int(status_code)})
 
             # 不再切换密钥，直接向客户端抛出HTTP异常
             raise HTTPException(
